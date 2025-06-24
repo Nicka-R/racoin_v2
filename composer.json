@@ -5,7 +5,8 @@
         "twig/twig": "3.*",
         "illuminate/database": "11.*",
         "ext-mysqli": "*",
-        "ext-pdo": "*"
+        "ext-pdo": "*",
+        "illuminate/events": "^11.45"
     },
     "autoload":{
         "psr-0":{
@@ -18,5 +19,8 @@
         "allow-plugins": {
             "kylekatarnls/update-helper": true
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.5"
     }
 }
