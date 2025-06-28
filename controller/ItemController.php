@@ -8,9 +8,35 @@ use model\Departement;
 use model\Photo;
 use model\Categorie;
 
-#[AllowDynamicProperties] class item {
+#[AllowDynamicProperties] class ItemController {
+    protected $annonce;
+    protected $annonceur;
+    protected $departement;
+    protected $photo;
+    protected $categItem;
+    protected $dptItem;
+
+    /**
+     * ItemController constructor.
+     */
     public function __construct(){
+        $this->annonce = array();
+        $this->annonceur = array();
+        $this->departement = array();
+        $this->photo = array();
+        $this->categItem = "";
+        $this->dptItem = "";
     }
+
+    /**
+     * Affiche un item
+     *
+     * @param $twig
+     * @param $menu
+     * @param $chemin
+     * @param $n
+     * @param $cat
+     */
     function afficherItem($twig, $menu, $chemin, $n, $cat): void
     {
 
@@ -42,6 +68,14 @@ use model\Categorie;
             "categories" => $cat));
     }
 
+    /**
+     * Affiche le formulaire de suppression d'un item
+     *
+     * @param $twig
+     * @param $menu
+     * @param $chemin
+     * @param $n
+     */
     function supprimerItemGet($twig, $menu, $chemin,$n){
         $this->annonce = Annonce::find($n);
         if(!isset($this->annonce)){
@@ -55,6 +89,15 @@ use model\Categorie;
     }
 
 
+    /**
+     * Supprime un item
+     *
+     * @param $twig
+     * @param $menu
+     * @param $chemin
+     * @param $n
+     * @param $cat
+     */
     function supprimerItemPost($twig, $menu, $chemin, $n, $cat){
         $this->annonce = Annonce::find($n);
         $reponse = false;
@@ -73,6 +116,14 @@ use model\Categorie;
             "categories" => $cat));
     }
 
+    /**
+     * Affiche le formulaire de modification d'un item
+     *
+     * @param $twig
+     * @param $menu
+     * @param $chemin
+     * @param $id
+     */
     function modifyGet($twig, $menu, $chemin, $id){
         $this->annonce = Annonce::find($id);
         if(!isset($this->annonce)){
@@ -85,6 +136,16 @@ use model\Categorie;
             "annonce" => $this->annonce));
     }
 
+    /**
+     * Affiche le formulaire de modification d'un item
+     *
+     * @param $twig
+     * @param $menu
+     * @param $chemin
+     * @param $n
+     * @param $cat
+     * @param $dpt
+     */
     function modifyPost($twig, $menu, $chemin, $n, $cat, $dpt){
         $this->annonce = Annonce::find($n);
         $this->annonceur = Annonceur::find($this->annonce->id_annonceur);
@@ -109,6 +170,15 @@ use model\Categorie;
             "categItem" => $this->categItem));
     }
 
+    /**
+     * Modifie un item
+     *
+     * @param $twig
+     * @param $menu
+     * @param $chemin
+     * @param $allPostVars
+     * @param $id
+     */
     function edit($twig, $menu, $chemin, $allPostVars, $id){
 
         date_default_timezone_set('Europe/Paris');

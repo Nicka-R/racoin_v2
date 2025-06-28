@@ -11,9 +11,22 @@ use model\Annonce;
 use model\Annonceur;
 use model\Photo;
 
-class viewAnnonceur {
+class AnnonceurController {
+    protected $annonceur;
     public function __construct(){
+        $this->annonceur = array();
     }
+
+
+    /**
+     * Affiche les annonces d'un annonceur
+     *
+     * @param $twig
+     * @param $menu
+     * @param $chemin
+     * @param $n
+     * @param $cat
+     */
     function afficherAnnonceur($twig, $menu, $chemin, $n, $cat) {
         $this->annonceur = annonceur::find($n);
         if(!isset($this->annonceur)){

@@ -4,8 +4,16 @@ namespace controller;
 
 use model\ApiKey;
 
-class KeyGenerator {
+class KeyGeneratorController {
 
+    /**
+     * Affiche le formulaire de génération de clé API
+     *
+     * @param $twig
+     * @param $menu
+     * @param $chemin
+     * @param $cat
+     */
     function show($twig, $menu, $chemin, $cat) {
         $template = $twig->load("key-generator.html.twig");
         $menu = array(
@@ -17,6 +25,15 @@ class KeyGenerator {
         echo $template->render(array("breadcrumb" => $menu, "chemin" => $chemin, "categories" => $cat));
     }
 
+    /**
+     * Génère une clé API et l'enregistre dans la base de données
+     *
+     * @param $twig
+     * @param $menu
+     * @param $chemin
+     * @param $cat
+     * @param $nom
+     */
     function generateKey($twig, $menu, $chemin, $cat, $nom) {
         $nospace_nom = str_replace(' ', '', $nom);
 
