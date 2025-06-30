@@ -7,6 +7,7 @@ use app\Model\Annonceur;
 use app\Model\Departement;
 use app\Model\Photo;
 use app\Model\Categorie;
+use app\Service\ErrorHandler;
 
 #[AllowDynamicProperties] class ItemController {
     protected $annonce;
@@ -16,16 +17,20 @@ use app\Model\Categorie;
     protected $categItem;
     protected $dptItem;
 
+    private ErrorHandler $errorHandler;
+
     /**
      * ItemController constructor.
      */
-    public function __construct(){
+    public function __construct(ErrorHandler $errorHandler)
+    {
         $this->annonce = array();
         $this->annonceur = array();
         $this->departement = array();
         $this->photo = array();
         $this->categItem = "";
         $this->dptItem = "";
+        $this->errorHandler = $errorHandler;
     }
 
     /**
@@ -249,13 +254,8 @@ use app\Model\Categorie;
 
         // S'il y a des erreurs on redirige vers la page d'erreur
         if (!empty($errors)) {
-
-            $template = $twig->load("add-error.html.twig");
-            echo $template->render(array(
-                    "breadcrumb" => $menu,
-                    "chemin" => $chemin,
-                    "errors" => $errors)
-            );
+        $this->errorHandler->renderError($menu, $chemin, $errors);
+        return;
         }
         // sinon on ajoute à la base et on redirige vers une page de succès
         else{

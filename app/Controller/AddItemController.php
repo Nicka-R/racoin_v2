@@ -4,9 +4,17 @@ namespace app\Controller;
 
 use app\Model\Annonce;
 use app\Model\Annonceur;
+use app\Service\ErrorHandler;
 
 class AddItemController
 {
+
+    private ErrorHandler $errorHandler;
+
+    public function __construct(ErrorHandler $errorHandler)
+    {
+        $this->errorHandler = $errorHandler;
+    }
     
     /**
      * Affiche le formulaire d'ajout d'une annonce
@@ -120,15 +128,9 @@ class AddItemController
 
         // S'il y a des erreurs on redirige vers la page d'erreur
         if (!empty($errors)) {
-
-            $template = $twig->load("add-error.html.twig");
-            echo $template->render(array(
-                    "breadcrumb" => $menu,
-                    "chemin"     => $chemin,
-                    "errors"     => $errors
-                )
-            );
-        } // sinon on ajoute à la base et on redirige vers une page de succès
+            $this->errorHandler->renderError($menu, $chemin, $errors);
+            return;
+        }
         else {
             $annonce   = new Annonce();
             $annonceur = new Annonceur();
