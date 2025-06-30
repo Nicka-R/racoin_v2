@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use model\Departement;
+use app\Model\Departement;
 
 class DepartementTest extends TestCase
 {

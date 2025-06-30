@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use model\Annonceur;
+use app\Model\Annonceur;
 
 class AnnonceurTest extends TestCase
 {

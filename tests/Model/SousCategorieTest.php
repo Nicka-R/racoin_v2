@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use model\SousCategorie;
+use app\Model\SousCategorie;
 
 class SousCategorieTest extends TestCase
 {

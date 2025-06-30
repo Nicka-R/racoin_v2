@@ -1,12 +1,20 @@
 <?php
 
-namespace controller;
+namespace app\Controller;
 
-use model\Annonce;
-use model\Categorie;
+use app\Model\Annonce;
+use app\Model\Categorie;
 
-class Search {
+class SearchController {
 
+    /**
+     * Affiche la page de recherche
+     *
+     * @param $twig
+     * @param $menu
+     * @param $chemin
+     * @param $cat
+     */
     function show($twig, $menu, $chemin, $cat) {
         $template = $twig->load("search.html.twig");
         $menu = array(
@@ -18,6 +26,15 @@ class Search {
         echo $template->render(array("breadcrumb" => $menu, "chemin" => $chemin, "categories" => $cat));
     }
 
+    /**
+     * Traite la recherche et affiche les résultats
+     *
+     * @param $array
+     * @param $twig
+     * @param $menu
+     * @param $chemin
+     * @param $cat
+     */
     function research($array, $twig, $menu, $chemin, $cat) {
         $template = $twig->load("index.html.twig");
         $menu = array(

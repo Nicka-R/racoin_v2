@@ -1,15 +1,23 @@
 <?php
 
-namespace controller;
+namespace app\Controller;
 
-use model\Annonce;
-use model\Photo;
-use model\Annonceur;
+use app\Model\Annonce;
+use app\Model\Photo;
+use app\Model\Annonceur;
 
-class index
+class AnnonceListController
 {
     protected $annonce = array();
 
+    /**
+     * Affiche toutes les annonces
+     *
+     * @param $twig
+     * @param $menu
+     * @param $chemin
+     * @param $cat
+     */
     public function displayAllAnnonce($twig, $menu, $chemin, $cat)
     {
         $template = $twig->load("index.html.twig");
@@ -29,6 +37,11 @@ class index
         ));
     }
 
+    /**
+     * Récupère toutes les annonces avec leurs photos et annonceurs
+     *
+     * @param $chemin
+     */
     public function getAll($chemin)
     {
         $tmp     = Annonce::with("Annonceur")->orderBy('id_annonce', 'desc')->take(12)->get();

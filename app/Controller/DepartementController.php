@@ -1,10 +1,10 @@
 <?php
 
-namespace controller;
+namespace app\Controller;
 
-use model\Departement;
+use app\Model\Departement;
 
-class getDepartment {
+class DepartementController {
 
     protected $departments = array();
 

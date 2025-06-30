@@ -1,8 +1,8 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use model\Photo;
-use model\Annonce;
+use app\Model\Photo;
+use app\Model\Annonce;
 
 class PhotoTest extends TestCase
 {

@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use model\Categorie;
+use app\Model\Categorie;
 
 class CategorieTest extends TestCase
 {

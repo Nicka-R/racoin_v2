@@ -1,0 +1,14 @@
+{% extends "main.html.twig" %}
+
+{% block content %}
+    <div class="row">
+        <div class="columns align-center">
+            <h2>Une erreur est survenue</h2>
+            <ul>
+                {% for e in errors %}
+                    <li>{{ e }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

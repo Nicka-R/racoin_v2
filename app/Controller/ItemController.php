@@ -1,16 +1,47 @@
 <?php
 
-namespace controller;
+namespace app\Controller;
 use AllowDynamicProperties;
-use model\Annonce;
-use model\Annonceur;
-use model\Departement;
-use model\Photo;
-use model\Categorie;
+use app\Model\Annonce;
+use app\Model\Annonceur;
+use app\Model\Departement;
+use app\Model\Photo;
+use app\Model\Categorie;
+use app\Service\ErrorHandler;
 
-#[AllowDynamicProperties] class item {
-    public function __construct(){
+#[AllowDynamicProperties] class ItemController {
+    protected $annonce;
+    protected $annonceur;
+    protected $departement;
+    protected $photo;
+    protected $categItem;
+    protected $dptItem;
+
+    private ErrorHandler $errorHandler;
+
+    /**
+     * ItemController constructor.
+     */
+    public function __construct(ErrorHandler $errorHandler)
+    {
+        $this->annonce = array();
+        $this->annonceur = array();
+        $this->departement = array();
+        $this->photo = array();
+        $this->categItem = "";
+        $this->dptItem = "";
+        $this->errorHandler = $errorHandler;
     }
+
+    /**
+     * Affiche un item
+     *
+     * @param $twig
+     * @param $menu
+     * @param $chemin
+     * @param $n
+     * @param $cat
+     */
     function afficherItem($twig, $menu, $chemin, $n, $cat): void
     {
 
@@ -42,6 +73,14 @@ use model\Categorie;
             "categories" => $cat));
     }
 
+    /**
+     * Affiche le formulaire de suppression d'un item
+     *
+     * @param $twig
+     * @param $menu
+     * @param $chemin
+     * @param $n
+     */
     function supprimerItemGet($twig, $menu, $chemin,$n){
         $this->annonce = Annonce::find($n);
         if(!isset($this->annonce)){
@@ -55,6 +94,15 @@ use model\Categorie;
     }
 
 
+    /**
+     * Supprime un item
+     *
+     * @param $twig
+     * @param $menu
+     * @param $chemin
+     * @param $n
+     * @param $cat
+     */
     function supprimerItemPost($twig, $menu, $chemin, $n, $cat){
         $this->annonce = Annonce::find($n);
         $reponse = false;
@@ -73,6 +121,14 @@ use model\Categorie;
             "categories" => $cat));
     }
 
+    /**
+     * Affiche le formulaire de modification d'un item
+     *
+     * @param $twig
+     * @param $menu
+     * @param $chemin
+     * @param $id
+     */
     function modifyGet($twig, $menu, $chemin, $id){
         $this->annonce = Annonce::find($id);
         if(!isset($this->annonce)){
@@ -85,6 +141,16 @@ use model\Categorie;
             "annonce" => $this->annonce));
     }
 
+    /**
+     * Affiche le formulaire de modification d'un item
+     *
+     * @param $twig
+     * @param $menu
+     * @param $chemin
+     * @param $n
+     * @param $cat
+     * @param $dpt
+     */
     function modifyPost($twig, $menu, $chemin, $n, $cat, $dpt){
         $this->annonce = Annonce::find($n);
         $this->annonceur = Annonceur::find($this->annonce->id_annonceur);
@@ -109,6 +175,15 @@ use model\Categorie;
             "categItem" => $this->categItem));
     }
 
+    /**
+     * Modifie un item
+     *
+     * @param $twig
+     * @param $menu
+     * @param $chemin
+     * @param $allPostVars
+     * @param $id
+     */
     function edit($twig, $menu, $chemin, $allPostVars, $id){
 
         date_default_timezone_set('Europe/Paris');
@@ -179,13 +254,8 @@ use model\Categorie;
 
         // S'il y a des erreurs on redirige vers la page d'erreur
         if (!empty($errors)) {
-
-            $template = $twig->load("add-error.html.twig");
-            echo $template->render(array(
-                    "breadcrumb" => $menu,
-                    "chemin" => $chemin,
-                    "errors" => $errors)
-            );
+        $this->errorHandler->renderError($menu, $chemin, $errors);
+        return;
         }
         // sinon on ajoute à la base et on redirige vers une page de succès
         else{

@@ -6,14 +6,27 @@
  * Time: 00:25
  */
 
-namespace controller;
-use model\Annonce;
-use model\Annonceur;
-use model\Photo;
+namespace app\Controller;
+use app\Model\Annonce;
+use app\Model\Annonceur;
+use app\Model\Photo;
 
-class viewAnnonceur {
+class AnnonceurController {
+    protected $annonceur;
     public function __construct(){
+        $this->annonceur = array();
     }
+
+
+    /**
+     * Affiche les annonces d'un annonceur
+     *
+     * @param $twig
+     * @param $menu
+     * @param $chemin
+     * @param $n
+     * @param $cat
+     */
     function afficherAnnonceur($twig, $menu, $chemin, $n, $cat) {
         $this->annonceur = annonceur::find($n);
         if(!isset($this->annonceur)){
