@@ -1,16 +1,20 @@
 <?php
 require 'vendor/autoload.php';
 
-use controller\CategorieController;
-use controller\DepartementController;
-use controller\AnnonceListController;
-use controller\ItemController;
-use db\connection;
+use app\Controller\CategorieController;
+use app\Controller\DepartementController;
+use app\Controller\AnnonceListController;
+use app\Controller\ItemController;
+use app\Controller\AddItemController;
+use app\Controller\SearchController;
+use app\Controller\AnnonceurController;
+use app\Service\ApiKeyService;
+use app\Service\Database\Connection;
 
-use model\Annonce;
-use model\Categorie;
-use model\Annonceur;
-use model\Departement;
+use app\Model\Annonce;
+use app\Model\Categorie;
+use app\Model\Annonceur;
+use app\Model\Departement;
 use Slim\App;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -84,13 +88,13 @@ $app->get('/item/{n}', function ($request, $response, $arg) use ($twig, $menu, $
 });
 
 $app->get('/add', function () use ($twig, $app, $menu, $chemin, $cat, $dpt) {
-    $ajout = new controller\AddItemController();
+    $ajout = new AddItemController();
     $ajout->addItemView($twig, $menu, $chemin, $cat->getCategories(), $dpt->getAllDepartments());
 });
 
 $app->post('/add', function ($request) use ($twig, $app, $menu, $chemin) {
     $allPostVars = $request->getParsedBody();
-    $ajout       = new controller\AddItemController();
+    $ajout       = new AddItemController();
     $ajout->addNewItem($twig, $menu, $chemin, $allPostVars);
 });
 
@@ -114,39 +118,39 @@ $app->map(['GET, POST'], '/item/{id}/confirm', function ($request, $response, $a
 });
 
 $app->get('/search', function () use ($twig, $menu, $chemin, $cat) {
-    $s = new controller\SearchController();
+    $s = new SearchController();
     $s->show($twig, $menu, $chemin, $cat->getCategories());
 });
 
 
 $app->post('/search', function ($request, $response) use ($app, $twig, $menu, $chemin, $cat) {
     $array = $request->getParsedBody();
-    $s     = new controller\SearchController();
+    $s     = new SearchController();
     $s->research($array, $twig, $menu, $chemin, $cat->getCategories());
 
 });
 
 $app->get('/annonceur/{n}', function ($request, $response, $arg) use ($twig, $menu, $chemin, $cat) {
     $n         = $arg['n'];
-    $annonceur = new controller\AnnonceurController();
+    $annonceur = new AnnonceurController();
     $annonceur->afficherAnnonceur($twig, $menu, $chemin, $n, $cat->getCategories());
 });
 
 $app->get('/del/{n}', function ($request, $response, $arg) use ($twig, $menu, $chemin) {
     $n    = $arg['n'];
-    $item = new controller\ItemController();
+    $item = new ItemController();
     $item->supprimerItemGet($twig, $menu, $chemin, $n);
 });
 
 $app->post('/del/{n}', function ($request, $response, $arg) use ($twig, $menu, $chemin, $cat) {
     $n    = $arg['n'];
-    $item = new controller\ItemController();
+    $item = new ItemController();
     $item->supprimerItemPost($twig, $menu, $chemin, $n, $cat->getCategories());
 });
 
 $app->get('/cat/{n}', function ($request, $response, $arg) use ($twig, $menu, $chemin, $cat) {
     $n = $arg['n'];
-    $categorie = new controller\CategorieController();
+    $categorie = new CategorieController();
     $categorie->displayCategorie($twig, $menu, $chemin, $cat->getCategories(), $n);
 });
 
@@ -247,14 +251,14 @@ $app->group('/api', function () use ($app, $twig, $menu, $chemin, $cat) {
     });
 
     $app->get('/key', function () use ($app, $twig, $menu, $chemin, $cat) {
-        $kg = new controller\KeyGeneratorController();
+        $kg = new ApiKeyService();
         $kg->show($twig, $menu, $chemin, $cat->getCategories());
     });
 
     $app->post('/key', function () use ($app, $twig, $menu, $chemin, $cat) {
         $nom = $_POST['nom'];
 
-        $kg = new controller\KeyGeneratorController();
+        $kg = new ApiKeyService();
         $kg->generateKey($twig, $menu, $chemin, $cat->getCategories(), $nom);
     });
 });

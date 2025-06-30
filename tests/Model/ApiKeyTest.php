@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use model\ApiKey;
+use app\Model\ApiKey;
 
 class ApiKeyTest extends TestCase
 {

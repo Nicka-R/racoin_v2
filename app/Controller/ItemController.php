@@ -1,12 +1,12 @@
 <?php
 
-namespace controller;
+namespace app\Controller;
 use AllowDynamicProperties;
-use model\Annonce;
-use model\Annonceur;
-use model\Departement;
-use model\Photo;
-use model\Categorie;
+use app\Model\Annonce;
+use app\Model\Annonceur;
+use app\Model\Departement;
+use app\Model\Photo;
+use app\Model\Categorie;
 
 #[AllowDynamicProperties] class ItemController {
     protected $annonce;

@@ -10,3 +10,12 @@ composer require illuminate/events
 
 - pour lancer les tests, j'ai lancé la commande `vendor/bin/phpunit`
 
+## 2 - Architecture
+
+Pour améliorer la clarté et la maintenabilité de l’application, j’ai proposé les changements suivants :
+
+- Renommage des fichiers en PascalCase pour suivre les conventions PSR-4 (ex : `addItem.php` → `AddItemController.php`). 
+
+- Uniformisation de l’autoloading et des namespaces dans tout le projet.
+
+- Ajout de commentaires et documentation pour chaque classe et méthode.

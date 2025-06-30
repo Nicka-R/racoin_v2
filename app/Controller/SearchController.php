@@ -1,9 +1,9 @@
 <?php
 
-namespace controller;
+namespace app\Controller;
 
-use model\Annonce;
-use model\Categorie;
+use app\Model\Annonce;
+use app\Model\Categorie;
 
 class SearchController {
 

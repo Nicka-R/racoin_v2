@@ -1,10 +1,10 @@
 <?php
 
-namespace controller;
+namespace app\Controller;
 
-use model\Annonce;
-use model\Photo;
-use model\Annonceur;
+use app\Model\Annonce;
+use app\Model\Photo;
+use app\Model\Annonceur;
 
 class AnnonceListController
 {

@@ -9,10 +9,8 @@
         "illuminate/events": "^11.45"
     },
     "autoload":{
-        "psr-0":{
-            "controller":"",
-            "model":"",
-            "db":""
+        "psr-4":{
+            "app\\": "app/"
         }
     },
     "config": {

@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use model\Region;
+use app\Model\Region;
 
 class RegionTest extends TestCase
 {

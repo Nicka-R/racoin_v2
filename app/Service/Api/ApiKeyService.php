@@ -1,10 +1,10 @@
 <?php
 
-namespace controller;
+namespace app\Service\Api;
 
-use model\ApiKey;
+use app\Model\ApiKey;
 
-class KeyGeneratorController {
+class ApiKeyService {
 
     /**
      * Affiche le formulaire de génération de clé API

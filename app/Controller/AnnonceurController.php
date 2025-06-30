@@ -6,10 +6,10 @@
  * Time: 00:25
  */
 
-namespace controller;
-use model\Annonce;
-use model\Annonceur;
-use model\Photo;
+namespace app\Controller;
+use app\Model\Annonce;
+use app\Model\Annonceur;
+use app\Model\Photo;
 
 class AnnonceurController {
     protected $annonceur;

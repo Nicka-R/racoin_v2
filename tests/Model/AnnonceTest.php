@@ -1,9 +1,9 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use model\Annonce;
-use model\Annonceur;
-use model\Photo;
+use app\Model\Annonce;
+use app\Model\Annonceur;
+use app\Model\Photo;
 
 class AnnonceTest extends TestCase
 {
